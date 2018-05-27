@@ -26,7 +26,9 @@
     "express": "^4.16.3",
     "http-errors": "^1.6.3",
     "mongojs": "^2.5.0",
+    "morgan": "^1.9.0",
     "rxjs": "^6.0.0",
+    "serve-favicon": "^2.5.0",
     "zone.js": "^0.8.26"
   },
   "devDependencies": {

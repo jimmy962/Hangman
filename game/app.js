@@ -1,14 +1,14 @@
 var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
-//var favicon = require('serve-favicon');
-//var logger = require('morgan');
+var favicon = require('serve-favicon');
+var logger = require('morgan');
 
 var apiRouter = require('./routes/test');
 
 var app = express();
 
-//app.use(logger('dev'));
+app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/game')));

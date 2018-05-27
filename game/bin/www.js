@@ -5,8 +5,9 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('game:server');
+var debug = require('debug')('mean-angular6:server');
 var http = require('http');
+var path = require('path');
 
 /**
  * Get port from environment and store in Express.
@@ -14,6 +15,11 @@ var http = require('http');
 
 var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
+
+//sets up my angular stuff
+app.set('views', path.join(__dirname, '/../dist/game'));
+app.set('view engine', 'ejs'); 
+app.engine('html',require('ejs').renderFile);
 
 /**
  * Create HTTP server.
