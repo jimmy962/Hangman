@@ -7,7 +7,7 @@ export class gameObj{
     progress: number; //has 3 numbers. 0 => player lost. 1 => player won. 2 => game is still in progress
     
     constructor(){
-        this.current = "Let's Play!";
+        this.current = "";
         this.state = 0;
         this.leng = 0; //you don't know the word yet
         this.wins = 0;

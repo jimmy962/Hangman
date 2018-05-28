@@ -7,4 +7,9 @@ router.get('/tasks', function(req, res, next) {
   res.render('index.html');
 });
 
+router.get('/starter', function(req, res, next){
+  var initial={current: "_ _ _ _ _ _ _ _", state: 0, leng: 8, wins: 0, losses: 0, progress: 2 };
+  res.json(initial);
+})
+
 module.exports = router;

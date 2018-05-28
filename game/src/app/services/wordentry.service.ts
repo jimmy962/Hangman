@@ -8,5 +8,8 @@ export class WordentryService{
         console.log('Task service is initialized');
     }
 
-    
+    getDataObject(){
+        return this.http.get('http://localhost:3000/api/starter')
+            .map(res => res.json());
+    }
 }

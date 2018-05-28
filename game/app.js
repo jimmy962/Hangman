@@ -6,6 +6,7 @@ var logger = require('morgan');
 
 var apiRouter = require('./routes/test');
 
+
 var app = express();
 
 app.use(logger('dev'));
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'dist/game')));
 app.use('/', express.static(path.join(__dirname, 'dist/game')));
 app.use('/api', apiRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -15,8 +15,12 @@ export class WordentryComponent{
 
     constructor(private entryword: WordentryService){
        this.imagePath = "http://adamsouthard.com/myWork/webWork/GIT%20417/SuperheroHangmanWebsite/7_man.png";
-       this.dataGame= new gameObj;
-       
+       this.dataGame=new gameObj();
+       this.entryword.getDataObject()
+            .subscribe(initData => {
+                console.log(initData);
+                this.dataGame=initData;
+            })
     }
 
     
@@ -38,12 +42,14 @@ export class WordentryComponent{
         }
 
         //receiver the updated dataGame
+
+        /*
         this.dataGame.current= "_ _ _ a _ _"; //simulating an updated dataGame
         this.dataGame.leng=6;
         this.dataGame.losses=2;
         this.dataGame.wins=5;
         this.dataGame.progress=0;
-        this.dataGame.state=5;
+        this.dataGame.state=5;*/
 
 
         //after you get the object... start here to figure out what to show
