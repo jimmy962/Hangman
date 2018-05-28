@@ -1,8 +1,14 @@
+<div>
+    <h2> Wins: {{dataGame.wins}} Losses: {{dataGame.losses}}</h2>
+    <br>
+    <img width="300" alt="Hangman Status" src= "{{ imagePath }}">
+    <br>
+    <h3>{{dataGame.current}}</h3>
+</div>
+<br>
+<br>
 <form class="well" (submit)="addTask($event)">
     <div class="form-group">
         <input type="text" [(ngModel)]="word" name="word" class="form-control" placeholder="Guess...">
-    </div>
-    <div>
-        <img width="400" alt="Hangman Status" src= "{{ imagePath }}">
     </div>
 </form>
