@@ -33,19 +33,18 @@ export class WordentryComponent{
         
         //filter out what to send to server
         var len=this.word.length;
-        if(len==1){
-            console.log("You entered a single character!");
+        if((len==1)||(len==this.dataGame.leng)){
+            //console.log("You entered a single character!");
             var newChar={stuff: this.word};
             this.entryword.sendChar(newChar).subscribe(clearEntry =>{
                 this.word="";
+                console.log(clearEntry);
             });
                 
         }
-        else if (len==this.dataGame.leng){
-            console.log('You entered a word!');
-        }
         else{
             this.message= "Invalid entry. Please enter a single character or a word of length: " +this.dataGame.leng;
+            this.word="";
         }
 
         //receiver the updated dataGame
