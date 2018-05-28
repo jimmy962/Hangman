@@ -1,5 +1,8 @@
 <form class="well" (submit)="addTask($event)">
     <div class="form-group">
-        <input type="text" [(ngModel)]="title" name="title" class="form-control" placeholder="Guess...">
+        <input type="text" [(ngModel)]="word" name="word" class="form-control" placeholder="Guess...">
+    </div>
+    <div>
+        <img width="400" alt="Hangman Status" src= "{{ imagePath }}">
     </div>
 </form>
