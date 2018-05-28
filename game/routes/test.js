@@ -12,4 +12,10 @@ router.get('/starter', function(req, res, next){
   res.json(initial);
 })
 
+router.post('/char',function(req,res,next){
+  content: {stuff: String};
+  content=req.body; //I have the string
+  res.json(content);
+})
+
 module.exports = router;

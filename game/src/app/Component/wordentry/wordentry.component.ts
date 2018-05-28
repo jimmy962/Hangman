@@ -11,11 +11,13 @@ export class WordentryComponent{
     word: string;
     imagePath: string;
     dataGame: gameObj;
+    message: string;
     
 
     constructor(private entryword: WordentryService){
-       this.imagePath = "http://adamsouthard.com/myWork/webWork/GIT%20417/SuperheroHangmanWebsite/7_man.png";
+       this.imagePath = "https://image.ibb.co/f0zDVy/State0.png";
        this.dataGame=new gameObj();
+       this.message="Let's play!";
        this.entryword.getDataObject()
             .subscribe(initData => {
                 console.log(initData);
@@ -33,12 +35,17 @@ export class WordentryComponent{
         var len=this.word.length;
         if(len==1){
             console.log("You entered a single character!");
+            var newChar={stuff: this.word};
+            this.entryword.sendChar(newChar).subscribe(clearEntry =>{
+                this.word="";
+            });
+                
         }
-        else if (len==8){
+        else if (len==this.dataGame.leng){
             console.log('You entered a word!');
         }
         else{
-            console.log('invalid entry');
+            this.message= "Invalid entry. Please enter a single character or a word of length: " +this.dataGame.leng;
         }
 
         //receiver the updated dataGame

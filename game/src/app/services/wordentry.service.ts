@@ -12,4 +12,13 @@ export class WordentryService{
         return this.http.get('http://localhost:3000/api/starter')
             .map(res => res.json());
     }
+
+    sendChar(newChar){
+        var headers=new Headers();
+        headers.append('Content-Type','application/json');
+        return this.http.post('http://localhost:3000/api/char', JSON.stringify(newChar),{headers:headers})
+            .map(res => res.json());
+    }
+
+
 }
