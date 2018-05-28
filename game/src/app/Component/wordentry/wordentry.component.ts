@@ -33,13 +33,18 @@ export class WordentryComponent{
         
         //filter out what to send to server
         var len=this.word.length;
-        if((len==1)||(len==this.dataGame.leng)){
-            //console.log("You entered a single character!");
+        if((len==1)||(len==this.dataGame.leng)){//When they send a single letter or a Word of proper size
             var newChar={stuff: this.word};
             this.entryword.sendChar(newChar).subscribe(clearEntry =>{
-                this.word="";
+                this.word=""; //erases the entry  bar
+                var newChar2={stuff: String, current: {x: ""}}; //template for receiving the updated word
+                newChar2=clearEntry;
+                //var temp=clearEntry.current;
                 console.log(clearEntry);
+                //console.log(temp);
+                this.dataGame.current=clearEntry.current;
             });
+        
                 
         }
         else{

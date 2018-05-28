@@ -26,17 +26,16 @@ router.post('/submit',function(req,res,next){
     //single character
 
     for(i=0;i<len;i++){
-          console.log("I entered this loop");
-
       k=0;
-      if(temp==randomWord[i]){
-        currentWord[k]=temp;
+      if(temp.charAt(0)==randomWord.charAt(i)){
+        currentWord=currentWord.substring(0,2*(i))+temp+currentWord.substring(2*(i)+1,2*len-1);
       }
       k=k+2;
     }
   }
+  console.log("current word is: "+currentWord);
   var initial={current: currentWord, state: 0, leng: len, wins: 0, losses: 0, progress: 2};
-  var other={stuff: "Got it!", otherObj:initial}
+  var other={stuff: "Got it!", current: currentWord}
   res.json(other);
   console.log(content.stuff);
 })
