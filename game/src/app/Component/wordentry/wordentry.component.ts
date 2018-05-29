@@ -12,14 +12,14 @@ export class WordentryComponent{
     imagePath: string;
     dataGame: gameObj;
     message: string;
-    Meme: string;
-    
+    gameResult: string; 
 
     constructor(private entryword: WordentryService){
        this.imagePath = "https://image.ibb.co/dG3OYJ/State0.png";
        this.dataGame=new gameObj();
        this.message="Let's play!";
-       this.Meme="https://image.ibb.co/euPafy/you_can_do_it_meme_generator_net_13822620.png"
+       this.gameResult="You can do it!!!";
+       
        this.entryword.getDataObject()
             .subscribe(initData => {
                 console.log(initData);
@@ -30,12 +30,16 @@ export class WordentryComponent{
     addTask(event){
         event.preventDefault();
         
-        if (this.dataGame.progress==1) 
-            this.message="You already won!"
-        else if(this.dataGame.progress==0)
-            this.message="You already lost!"
+        if (this.dataGame.progress==1) {
+            this.message="You already won!";
+            this.word="";
+        }
+        else if(this.dataGame.progress==0){
+            this.message="You already lost!";
+            this.word="";
+        }
         else{
-            //filter out what to send to server
+            this.message=" ";
             var len=this.word.length;
             if((len==1)||(len==this.dataGame.leng)){//When they send a single letter or a Word of proper size
                 var newChar={stuff: this.word};
@@ -52,16 +56,17 @@ export class WordentryComponent{
                     this.updatePic();
                     
                     if (this.dataGame.progress==1){ //1 means you won!
-                        this.Meme="https://image.ibb.co/hUuQAy/winner.jpg";
+                        this.gameResult="Congratulations, you won! Play again!";
                     }
                     else if(this.dataGame.progress==0){
-                        this.Meme="https://image.ibb.co/dE9mHd/lost.jpg"
+                        this.gameResult="Oh no =[ ... click the button to play again!"
                     }         
                 });
             }
             else{
                 this.message= "Invalid entry. Please enter a single character or a word of length: " +this.dataGame.leng;
                 this.word="";
+                
             }
         }
         

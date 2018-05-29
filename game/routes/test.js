@@ -12,6 +12,7 @@ router.get('/tasks', function(req, res, next) {
 //Send the original word
 router.get('/starter', function(req, res, next){
   //Make this a post instead of a get...in order to refresh data
+  updatedObj={current: "", state: 0, leng: Number, wins: 0, losses: 0, progress: 2};
   updatedObj.leng =randomWord.length;
   for(i=0;i<updatedObj.leng;i++){
     updatedObj.current=updatedObj.current + "_" + " ";
@@ -40,6 +41,20 @@ router.post('/submit',function(req,res,next){
       updatedObj.state++;
     }
   }
+  else if((temp.length==randomWord.length)&&(updatedObj.progress==2)){//Client tries to submit the word
+    if(temp==randomWord){
+      updatedObj.progress=1; //means you won
+      updatedObj.wins++; //user has another win
+
+      updatedObj.current="";//erase it...put in the whole word
+      for(i=0;i<updatedObj.leng;i++){
+        updatedObj.current=updatedObj.current + randomWord.charAt(i) + " ";
+      }
+    }
+    else{
+      updatedObj.state++;
+    }
+  }
 
   tempString=""; //For checking if I won yet
   if(updatedObj.progress==2){ //if the game hasn't been won or lost yet
@@ -52,9 +67,7 @@ router.post('/submit',function(req,res,next){
       length= updatedObj.leng;
       console.log("length is: "+length);
       for(i=0;i<length;i++){
-        console.log("yep<"+updatedObj.current.substring(2*i,2*i+1)+">");
         tempString=tempString+updatedObj.current.substring(2*i,2*i+1);
-        //tempString=tempString + updatedObj.current.substring(2*i,2*i+1);
       }
       if(tempString==randomWord){
         updatedObj.progress=1;
