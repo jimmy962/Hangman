@@ -24,7 +24,7 @@ export class WordentryComponent{
             .subscribe(initData => {
                 console.log(initData);
                 this.dataGame=initData;
-            })
+            });
     }  
     
     addTask(event){
@@ -69,8 +69,16 @@ export class WordentryComponent{
                 
             }
         }
-        
+    }
 
+    playAgain(){
+        this.entryword.playAgain()
+            .subscribe(newData => {
+                console.log(newData);
+                this.dataGame=newData;
+                this.gameResult="You can do it!!!";
+                this.imagePath = "https://image.ibb.co/dG3OYJ/State0.png";
+            });
     }
     updatePic(){
         switch(this.dataGame.state) {

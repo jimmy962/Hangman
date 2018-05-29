@@ -13,14 +13,16 @@ export class WordentryService{
             .map(res => res.json());
     }
 
-    sendChar(newChar){
+    sendChar(newChar){//sends the word too
         var headers=new Headers();
         headers.append('Content-Type','application/json');
         return this.http.post('http://localhost:3000/api/submit', JSON.stringify(newChar),{headers:headers})
             .map(res => res.json());
     }
 
-    
-
+    playAgain(){
+        return this.http.get('http://localhost:3000/api/restart')
+            .map(res => res.json());
+    }
 
 }

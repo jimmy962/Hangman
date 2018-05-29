@@ -1,7 +1,24 @@
 var express = require('express');
 var router = express.Router();
-randomWord = "chicken";
+var path=require('path');
+randomWord = "";
 updatedObj={current: "", state: 0, leng: Number, wins: 0, losses: 0, progress: 2};
+randomNumb: Number;
+
+
+//for reading
+var fs = require('fs');
+
+function get_line(filename, line_no, callback) {
+    var data = fs.readFileSync(filename, 'utf8');
+    var lines = data.split("\n");
+
+    if(+line_no > lines.length){
+      throw new Error('File end reached without finding line');
+    }
+
+    callback(null, lines[+line_no]);
+}
 
 /* GET home page. */
 router.get('/tasks', function(req, res, next) {
@@ -9,9 +26,18 @@ router.get('/tasks', function(req, res, next) {
   res.render('index.html');
 });
 
-//Send the original word
+//Send the data
 router.get('/starter', function(req, res, next){
-  //Make this a post instead of a get...in order to refresh data
+  //Get a word first
+
+  //generate random number 
+  randomNumb=Math.floor(Math.random() * 50);
+  //get the word associated with the random number
+  get_line(path.join(__dirname,"/listofwords.txt"), randomNumb, function(err, line){
+    randomWord=line.substring(0,line.length-1);
+    console.log(line);
+  });
+  
   updatedObj={current: "", state: 0, leng: Number, wins: 0, losses: 0, progress: 2};
   updatedObj.leng =randomWord.length;
   for(i=0;i<updatedObj.leng;i++){
@@ -21,12 +47,38 @@ router.get('/starter', function(req, res, next){
   res.json(updatedObj);
 })
 
+router.get('/restart',function(req,res,next){
+  if(updatedObj.progress==2){//If game was still in progress
+    updatedObj.losses++;
+  }
+  
+  //generate a new randomWord
+  randomNumb=Math.floor(Math.random() * 50);
+  //get the word associated with the random number
+  get_line(path.join(__dirname,"/listofwords.txt"), randomNumb, function(err, line){
+    randomWord=line.substring(0,line.length-1);
+    console.log(line);
+  });
+
+  //give them the new word
+  updatedObj.current=""; //clear it out first 
+  updatedObj.state=0;
+  updatedObj.leng =randomWord.length;
+  updatedObj.progress=2;
+  for(i=0;i<updatedObj.leng;i++){
+    updatedObj.current=updatedObj.current + "_" + " ";
+  }
+  res.json(updatedObj);
+})
+
 
 //This is the back and forth while the game is still running
 router.post('/submit',function(req,res,next){
   content: {stuff: String};
   content=req.body; //Unwrap the object and get the string
   temp= content.stuff;
+  temp=temp.toLowerCase();
+  console.log(temp);
   isFound=false;
   if((temp.length==1)&&(updatedObj.progress==2)){ //single character submissions and when the game is still in progress
       for(i=0;i<updatedObj.leng;i++){

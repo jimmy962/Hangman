@@ -7,10 +7,16 @@
 </div>
 <br>
 <div>
-    {{message}}
+    <h4>{{message}}</h4>
 </div>
 <form class="well" (submit)="addTask($event)">
     <div class="form-group">
         <input type="text" [(ngModel)]="word" name="word" class="form-control" placeholder="Guess...">
     </div>
 </form>
+<div>
+    <input type="button" (click)="playAgain()" value="Play again!">
+</div>
+<div>
+    Messsage: If you hit play again and you didn't win, it counts as a loss!
+</div>
