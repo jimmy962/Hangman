@@ -30,36 +30,40 @@ export class WordentryComponent{
     addTask(event){
         event.preventDefault();
         
-        
-        //filter out what to send to server
-        var len=this.word.length;
-        if((len==1)||(len==this.dataGame.leng)){//When they send a single letter or a Word of proper size
-            var newChar={stuff: this.word};
-            this.entryword.sendChar(newChar).subscribe(clearEntry =>{
-                this.word=""; //erases the entry  bar
-                var newChar2={stuff: String, current: {x: new gameObj}}; //template for receiving the updated word
-                newChar2=clearEntry;
-                //var temp=clearEntry.current;
-                console.log(clearEntry.current);
-                //console.log(temp);
-                this.dataGame=clearEntry.current;
-
-                //which picture to show
-                this.updatePic();
-                
-                if (this.dataGame.progress==1){ //1 means you won!
-                    this.Meme="https://image.ibb.co/hUuQAy/winner.jpg";
-                }
-                else if(this.dataGame.progress==0){
-                    this.Meme="https://image.ibb.co/dE9mHd/lost.jpg"
-                }         
-            });
-        }
+        if (this.dataGame.progress==1) 
+            this.message="You already won!"
+        else if(this.dataGame.progress==0)
+            this.message="You already lost!"
         else{
-            this.message= "Invalid entry. Please enter a single character or a word of length: " +this.dataGame.leng;
-            this.word="";
-        }
+            //filter out what to send to server
+            var len=this.word.length;
+            if((len==1)||(len==this.dataGame.leng)){//When they send a single letter or a Word of proper size
+                var newChar={stuff: this.word};
+                this.entryword.sendChar(newChar).subscribe(clearEntry =>{
+                    this.word=""; //erases the entry  bar
+                    var newChar2={stuff: String, current: {x: new gameObj}}; //template for receiving the updated word
+                    newChar2=clearEntry;
+                    //var temp=clearEntry.current;
+                    console.log(clearEntry.current);
+                    //console.log(temp);
+                    this.dataGame=clearEntry.current;
 
+                    //which picture to show
+                    this.updatePic();
+                    
+                    if (this.dataGame.progress==1){ //1 means you won!
+                        this.Meme="https://image.ibb.co/hUuQAy/winner.jpg";
+                    }
+                    else if(this.dataGame.progress==0){
+                        this.Meme="https://image.ibb.co/dE9mHd/lost.jpg"
+                    }         
+                });
+            }
+            else{
+                this.message= "Invalid entry. Please enter a single character or a word of length: " +this.dataGame.leng;
+                this.word="";
+            }
+        }
         
 
     }
@@ -77,7 +81,7 @@ export class WordentryComponent{
             case 9: this.imagePath="https://image.ibb.co/e2eVDJ/State9.png"; break;
             case 10: {this.imagePath="https://image.ibb.co/hzfsSd/State10.png"; this.dataGame.state =-1; break;}
         }  
-
+        
     }
 }
 

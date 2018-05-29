@@ -9,7 +9,9 @@ router.get('/tasks', function(req, res, next) {
   res.render('index.html');
 });
 
+//Send the original word
 router.get('/starter', function(req, res, next){
+  //Make this a post instead of a get...in order to refresh data
   updatedObj.leng =randomWord.length;
   for(i=0;i<updatedObj.leng;i++){
     updatedObj.current=updatedObj.current + "_" + " ";
@@ -18,6 +20,8 @@ router.get('/starter', function(req, res, next){
   res.json(updatedObj);
 })
 
+
+//This is the back and forth while the game is still running
 router.post('/submit',function(req,res,next){
   content: {stuff: String};
   content=req.body; //Unwrap the object and get the string
@@ -38,27 +42,26 @@ router.post('/submit',function(req,res,next){
   }
 
   tempString=""; //For checking if I won yet
-  
-  if(updatedObj.state>=10){
-    updatedObj.progress=0; //signify that the user has lost
-    updatedObj.losses++;
-  }
-  
-  else{ //User has not lost...check if he has won
-    //Why can't I declare tempString here?
-    length= updatedObj.leng;
-    console.log("length is: "+length);
-    for(i=0;i<length;i++){
-      console.log("yep<"+updatedObj.current.substring(2*i,2*i+1)+">");
-      tempString=tempString+updatedObj.current.substring(2*i,2*i+1);
-      //tempString=tempString + updatedObj.current.substring(2*i,2*i+1);
-    }
-    if(tempString==randomWord){
-      updatedObj.progress=1;
+  if(updatedObj.progress==2){ //if the game hasn't been won or lost yet
+    if(updatedObj.state>=10){
+      updatedObj.progress=0; //signify that the user has lost
       updatedObj.losses++;
+    }  
+    else{ //User has not lost...check if he has won
+      //Why can't I declare tempString here?
+      length= updatedObj.leng;
+      console.log("length is: "+length);
+      for(i=0;i<length;i++){
+        console.log("yep<"+updatedObj.current.substring(2*i,2*i+1)+">");
+        tempString=tempString+updatedObj.current.substring(2*i,2*i+1);
+        //tempString=tempString + updatedObj.current.substring(2*i,2*i+1);
+      }
+      if(tempString==randomWord){
+        updatedObj.progress=1;
+        updatedObj.wins++;
+      }
     }
   }
-
   wrapper={stuff: "Got it!", current: updatedObj}
   console.log("state is: "+updatedObj.state+". Progress is: "+updatedObj.progress);
   res.json(wrapper);
