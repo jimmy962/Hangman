@@ -53,7 +53,7 @@ export class WordentryComponent{
                 }
                 else if(this.dataGame.progress==0){
                     this.imagePath="https://image.ibb.co/dE9mHd/lost.jpg"
-                }
+                }          
             });
         
                 

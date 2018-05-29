@@ -32,7 +32,7 @@ router.post('/submit',function(req,res,next){
     }
   }
   console.log("current word is: "+currentWord); //show the word in terminal to see I have the right words
-  updatedObj={current: currentWord, state: 0, leng: len, wins: 2, losses: 1, progress: 0};
+  updatedObj={current: currentWord, state: 4, leng: len, wins: 2, losses: 1, progress: 2};
   wrapper={stuff: "Got it!", current: updatedObj}
   res.json(wrapper);
   console.log(content.stuff);
