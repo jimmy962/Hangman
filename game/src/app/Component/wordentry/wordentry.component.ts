@@ -37,12 +37,23 @@ export class WordentryComponent{
             var newChar={stuff: this.word};
             this.entryword.sendChar(newChar).subscribe(clearEntry =>{
                 this.word=""; //erases the entry  bar
-                var newChar2={stuff: String, current: {x: ""}}; //template for receiving the updated word
+                var newChar2={stuff: String, current: {x: new gameObj}}; //template for receiving the updated word
                 newChar2=clearEntry;
                 //var temp=clearEntry.current;
-                console.log(clearEntry);
+                console.log(clearEntry.current);
                 //console.log(temp);
-                this.dataGame.current=clearEntry.current;
+                this.dataGame=clearEntry.current;
+
+                //which picture to show
+                if(this.dataGame.progress==2){
+                    this.updatePic();
+                }
+                else if (this.dataGame.progress==1){ //1 means you won!
+                    this.imagePath="https://image.ibb.co/hUuQAy/winner.jpg";
+                }
+                else if(this.dataGame.progress==0){
+                    this.imagePath="https://image.ibb.co/dE9mHd/lost.jpg"
+                }
             });
         
                 
@@ -52,29 +63,7 @@ export class WordentryComponent{
             this.word="";
         }
 
-        //receiver the updated dataGame
-
-        /*
-        this.dataGame.current= "_ _ _ a _ _"; //simulating an updated dataGame
-        this.dataGame.leng=6;
-        this.dataGame.losses=2;
-        this.dataGame.wins=5;
-        this.dataGame.progress=0;
-        this.dataGame.state=5;*/
-
-
-        //after you get the object... start here to figure out what to show
         
-        //change picture
-        if(this.dataGame.progress==2){
-            this.updatePic();
-        }
-        else if (this.dataGame.progress==1){ //1 means you won!
-            this.imagePath="https://image.ibb.co/hUuQAy/winner.jpg";
-        }
-        else if(this.dataGame.progress==0){
-            this.imagePath="https://image.ibb.co/dE9mHd/lost.jpg"
-        }
 
     }
     updatePic(){

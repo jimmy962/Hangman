@@ -20,23 +20,21 @@ router.get('/starter', function(req, res, next){
 
 router.post('/submit',function(req,res,next){
   content: {stuff: String};
-  content=req.body; //I have the string
+  content=req.body; //Unwrap the object and get the string
   temp= content.stuff;
-  if(temp.length==1){
-    //single character
-
-    for(i=0;i<len;i++){
-      k=0;
+  if(temp.length==1){ //single character submissions
+      for(i=0;i<len;i++){
+      k=0; //my currentWord string will count by 2 so I will need a seperate index k
       if(temp.charAt(0)==randomWord.charAt(i)){
         currentWord=currentWord.substring(0,2*(i))+temp+currentWord.substring(2*(i)+1,2*len-1);
       }
       k=k+2;
     }
   }
-  console.log("current word is: "+currentWord);
-  var initial={current: currentWord, state: 0, leng: len, wins: 0, losses: 0, progress: 2};
-  var other={stuff: "Got it!", current: currentWord}
-  res.json(other);
+  console.log("current word is: "+currentWord); //show the word in terminal to see I have the right words
+  updatedObj={current: currentWord, state: 0, leng: len, wins: 2, losses: 1, progress: 0};
+  wrapper={stuff: "Got it!", current: updatedObj}
+  res.json(wrapper);
   console.log(content.stuff);
 })
 
