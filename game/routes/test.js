@@ -114,11 +114,15 @@ router.post('/submit',function(req,res,next){
     if(updatedObj.state>=10){
       updatedObj.progress=0; //signify that the user has lost
       updatedObj.losses++;
+      //show the word
+      updatedObj.current="";//erase it...put in the whole word
+      for(i=0;i<updatedObj.leng;i++){
+        updatedObj.current=updatedObj.current + randomWord.charAt(i) + " ";
+      }
     }  
     else{ //User has not lost...check if he has won
       //Why can't I declare tempString here?
       length= updatedObj.leng;
-      console.log("length is: "+length);
       for(i=0;i<length;i++){
         tempString=tempString+updatedObj.current.substring(2*i,2*i+1);
       }
