@@ -9,7 +9,8 @@ randomNumb: Number;
 //for reading
 var fs = require('fs');
 
-function get_line(filename, line_no, callback) {
+function get_line(filename, line_no, callback) { //Got this from stacksOverflow 
+  //https://stackoverflow.com/questions/6394951/read-nth-line-of-file-in-nodejs
     var data = fs.readFileSync(filename, 'utf8');
     var lines = data.split("\n");
 
